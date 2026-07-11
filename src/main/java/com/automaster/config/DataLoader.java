@@ -38,8 +38,10 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 1; i <= 3; i++) {
             Sucursal sucursal = new Sucursal();
 
-            // ATENCIÓN: Asigna aquí los valores obligatorios que tenga tu entidad Sucursal.
-            // Ejemplo si tuviera un atributo "nombre":
+            // LÍNEA CORREGIDA: Asigna una dirección ficticia para cumplir con la restricción de la BD
+            sucursal.setDireccion(faker.address().fullAddress());
+
+            // Si tu entidad Sucursal también tiene un atributo "nombre", descomenta la línea de abajo:
             // sucursal.setNombre("Sucursal " + faker.address().cityName());
 
             sucursales.add(sucursalRepository.save(sucursal));
@@ -50,18 +52,15 @@ public class DataLoader implements CommandLineRunner {
             Vendedor vendedor = new Vendedor();
 
             // Atributo: rut (String, unique=true)
-            // Genera un formato tipo 12345678-K
             vendedor.setRut(faker.regexify("[0-9]{8}-[0-9kK]"));
 
             // Atributo: nombre (String)
             vendedor.setNombre(faker.name().fullName());
 
             // Atributo: metaVentas (Double)
-            // Genera una meta aleatoria entre 1.000.000 y 10.000.000
             vendedor.setMetaVentas(faker.number().randomDouble(0, 1000000, 10000000));
 
             // Atributo: comisiones (Double)
-            // Genera una comisión inicial aleatoria entre 0 y 500.000
             vendedor.setComisiones(faker.number().randomDouble(0, 0, 500000));
 
             // Atributo: sucursal (Relación ManyToOne)
