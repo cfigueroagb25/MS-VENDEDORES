@@ -38,16 +38,14 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 1; i <= 3; i++) {
             Sucursal sucursal = new Sucursal();
 
-            // LÍNEA CORREGIDA: Asigna una dirección ficticia para cumplir con la restricción de la BD
+            // Asignamos TODOS los campos obligatorios para la BD
             sucursal.setDireccion(faker.address().fullAddress());
-
-            // Si tu entidad Sucursal también tiene un atributo "nombre", descomenta la línea de abajo:
-            // sucursal.setNombre("Sucursal " + faker.address().cityName());
+            sucursal.setNombre("Sucursal " + faker.address().cityName());
 
             sucursales.add(sucursalRepository.save(sucursal));
         }
 
-        // 2. Crear Vendedores mapeando exactamente los atributos de tu imagen
+        // 2. Crear Vendedores mapeando exactamente los atributos
         for (int i = 0; i < 30; i++) {
             Vendedor vendedor = new Vendedor();
 
